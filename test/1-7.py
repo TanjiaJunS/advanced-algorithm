@@ -1,4 +1,3 @@
-#获取输入的函数
 
 import sys
 try:
@@ -9,11 +8,8 @@ try:
             break
         item = list(map(int,list(item.split())))
         items.append(item)
-    #print(items)
     for im in items:
-        sum = 0
-        for i in im:
-            sum = sum + i
-        print(sum-im[0])
+        print(im[1]+im[0])
+        print()
 except:
     pass

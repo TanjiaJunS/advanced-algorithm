@@ -10,10 +10,14 @@ try:
         item = list(map(int,list(item.split())))
         items.append(item)
     #print(items)
-    for im in items:
+    max = items[0][0]
+    for i in range(1,max+1):
+        item = items[i]
         sum = 0
-        for i in im:
+        for i in item:
             sum = sum + i
-        print(sum-im[0])
+        print(sum - item[0])
+        print()
 except:
     pass
+
