@@ -1,0 +1,35 @@
+import json
+from collections import defaultdict
+from datetime import datetime
+
+# 打开JSON文件
+with open('data.json', 'r') as json_file:
+    data = json.load(json_file)
+
+# 创建一个字典来存储每个userid的数据
+user_data = defaultdict(list)
+
+# 遍历JSON数据
+for entry in data:
+    user_id = entry['userid']
+    time_stamp = entry['time']
+
+    # 将时间戳转换为日期时间格式
+    formatted_time = datetime.utcfromtimestamp(time_stamp).strftime('%Y-%m-%d %H:%M:%S')
+
+    # 添加数据到相应的userid列表
+    user_data[user_id].append({'time': formatted_time})
+
+# 统计每个userid有多少条数据
+user_counts = {user_id: len(entries) for user_id, entries in user_data.items()}
+
+# 按照时间顺序对每个userid的数据进行排序
+sorted_user_data = {user_id: sorted(entries, key=lambda x: x['time']) for user_id, entries in user_data.items()}
+
+# 输出每个userid的数据统计和排序结果
+for user_id, count in user_counts.items():
+    print(f'User ID: {user_id}, 数据数量: {count}')
+    print(f'Sorted Data for User ID {user_id}:')
+    for entry in sorted_user_data[user_id]:
+        print(f"时间: {entry['time']}")
+    print()
